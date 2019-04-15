@@ -1,0 +1,13 @@
+---
+applications:
+- name: CF_APP_NAME
+  memory: 256m
+  instances: 1
+  env:
+    B1_SERVER_ENV: https://SL_SERVER_ADDRESS
+    B1_SLPORT_ENV: SL_SERVER_PORT
+    B1_SLPATH_ENV: /b1s/v1/
+    B1_USER_ENV: "SL_SERVER_USER"
+    B1_PASS_ENV: "SL_SERVER_PASSWORD"
+    B1_COMP_ENV: "SL_SERVER_DATABASE"
+    DB_SERVICE_NAME: postgresql

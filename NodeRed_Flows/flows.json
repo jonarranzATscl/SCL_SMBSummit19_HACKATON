@@ -1,0 +1,424 @@
+[
+    {
+        "id": "b21871ca.29e22",
+        "type": "tab",
+        "label": "MQTT Receiver",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1c927233.cf74fe",
+        "type": "tab",
+        "label": "Telegram",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5874a587.7045ac",
+        "type": "tab",
+        "label": "HyperLedger",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4cdd415e.84ca4",
+        "type": "tab",
+        "label": "SCP",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9c2becca.03dc8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "MQTT_SERVER_ADDRESS",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "71394e23.7d7b6",
+        "type": "telegram bot",
+        "z": "",
+        "botname": "BOTNAME",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "verboselogging": false
+    },
+    {
+        "id": "a377c54f.7b76f8",
+        "type": "http request",
+        "z": "5874a587.7045ac",
+        "name": "Post HyperLedger Message",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 680,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a349df7.5d74c4",
+        "type": "function",
+        "z": "5874a587.7045ac",
+        "name": "Compose HyperLedger request",
+        "func": "msg.url = \"https://hyperledger-fabric.cfapps.eu10.hana.ondemand.com/api/v1/chaincodes/CHAINCODE-com-sap-icn-blockchain-example-helloWorld/37/temperature\";\nmsg.headers = {};\nmsg.headers['accept'] = 'application/json';\nmsg.headers['authorization'] = 'Bearer AUTHCODE';\nmsg.headers['Content-Type'] = 'application/x-www-form-urlencoded';\nmsg.payload = {\"text\": msg.payload};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "a377c54f.7b76f8"
+            ]
+        ]
+    },
+    {
+        "id": "685157b4.72dcc8",
+        "type": "mqtt in",
+        "z": "b21871ca.29e22",
+        "name": "",
+        "topic": "CC2650STK",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "9c2becca.03dc8",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "89d99383.bab44"
+            ]
+        ]
+    },
+    {
+        "id": "89d99383.bab44",
+        "type": "json",
+        "z": "b21871ca.29e22",
+        "name": "Convert to JSON",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "8b17587a.5ab388"
+            ]
+        ]
+    },
+    {
+        "id": "8b17587a.5ab388",
+        "type": "function",
+        "z": "b21871ca.29e22",
+        "name": "Save last temperature locally",
+        "func": "global.set('lasttemp', msg.payload.ambientTemp);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 160,
+        "wires": [
+            [
+                "311f2190.ff733e",
+                "4e5430fd.e6eba"
+            ]
+        ]
+    },
+    {
+        "id": "23d615d1.c6a65a",
+        "type": "link in",
+        "z": "1c927233.cf74fe",
+        "name": "TelegramFlow Input",
+        "links": [
+            "981104e1.37d3c8"
+        ],
+        "x": 175,
+        "y": 160,
+        "wires": [
+            [
+                "b6545319.37e94"
+            ]
+        ]
+    },
+    {
+        "id": "8909a5aa.926d88",
+        "type": "link in",
+        "z": "5874a587.7045ac",
+        "name": "HyperLedgerFlow Input",
+        "links": [
+            "c8b17f2.e932a8"
+        ],
+        "x": 100,
+        "y": 180,
+        "wires": [
+            [
+                "4a349df7.5d74c4"
+            ]
+        ]
+    },
+    {
+        "id": "981104e1.37d3c8",
+        "type": "link out",
+        "z": "b21871ca.29e22",
+        "name": "",
+        "links": [
+            "23d615d1.c6a65a",
+            "e57bbaae.13bce8"
+        ],
+        "x": 1075,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e57bbaae.13bce8",
+        "type": "link in",
+        "z": "4cdd415e.84ca4",
+        "name": "SCPFlow Input",
+        "links": [
+            "981104e1.37d3c8"
+        ],
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "aca01e0c.1c5a6"
+            ]
+        ]
+    },
+    {
+        "id": "311f2190.ff733e",
+        "type": "switch",
+        "z": "b21871ca.29e22",
+        "name": "Alert Condition",
+        "property": "payload.key1",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 820,
+        "y": 280,
+        "wires": [
+            [
+                "2a25da8b.cabad6"
+            ]
+        ]
+    },
+    {
+        "id": "2a25da8b.cabad6",
+        "type": "function",
+        "z": "b21871ca.29e22",
+        "name": "Extract parameter: Temperature",
+        "func": "msg.payload = msg.payload.ambientTemp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 890,
+        "y": 420,
+        "wires": [
+            [
+                "981104e1.37d3c8"
+            ]
+        ]
+    },
+    {
+        "id": "c8b17f2.e932a8",
+        "type": "link out",
+        "z": "b21871ca.29e22",
+        "name": "HyperLedger Link",
+        "links": [
+            "8909a5aa.926d88"
+        ],
+        "x": 1055,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4e5430fd.e6eba",
+        "type": "function",
+        "z": "b21871ca.29e22",
+        "name": "Extract parameter: Temperature",
+        "func": "msg.payload = msg.payload.ambientTemp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 160,
+        "wires": [
+            [
+                "c8b17f2.e932a8"
+            ]
+        ]
+    },
+    {
+        "id": "b6545319.37e94",
+        "type": "function",
+        "z": "1c927233.cf74fe",
+        "name": "Compose Alert Message",
+        "func": "var payload = {\"chatId\":TELEGRAM_CHATID, \"type\":\"message\", \"content\": \"Alert! Temperature is over thresold! Current Temperature: \" + msg.payload};\nmsg.payload = payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 160,
+        "wires": [
+            [
+                "8d8c7edc.13f57"
+            ]
+        ]
+    },
+    {
+        "id": "8d8c7edc.13f57",
+        "type": "telegram sender",
+        "z": "1c927233.cf74fe",
+        "name": "",
+        "bot": "71394e23.7d7b6",
+        "x": 830,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db9c8eb.f34677",
+        "type": "telegram receiver",
+        "z": "1c927233.cf74fe",
+        "name": "",
+        "bot": "71394e23.7d7b6",
+        "saveDataDir": "",
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "106f65c0.65f1ca"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "106f65c0.65f1ca",
+        "type": "switch",
+        "z": "1c927233.cf74fe",
+        "name": "Chatbox AI",
+        "property": "payload.content",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "temp",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "Temp",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "TEMP",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "fc0c757.3817488"
+            ],
+            [
+                "fc0c757.3817488"
+            ],
+            [
+                "fc0c757.3817488"
+            ]
+        ]
+    },
+    {
+        "id": "fc0c757.3817488",
+        "type": "function",
+        "z": "1c927233.cf74fe",
+        "name": "Compose Chatbot Message",
+        "func": "var payload = {\"chatId\":TELEGRAM_CHAT_ID, \"type\":\"message\", \"content\": \"Current Temperature: \" + global.get('lasttemp')};\nmsg.payload = payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 320,
+        "wires": [
+            [
+                "8d8c7edc.13f57"
+            ]
+        ]
+    },
+    {
+        "id": "aca01e0c.1c5a6",
+        "type": "function",
+        "z": "4cdd415e.84ca4",
+        "name": "Compose SCP Message",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.payload = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "42b50da5.52fdb4"
+            ]
+        ]
+    },
+    {
+        "id": "42b50da5.52fdb4",
+        "type": "http request",
+        "z": "4cdd415e.84ca4",
+        "name": "Post SCP Message",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://CF_APP_NAME.cfapps.eu10.hana.ondemand.com/api/Temperatures",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 630,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    }
+]
