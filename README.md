@@ -62,7 +62,7 @@ For this functionality, we used the [Blockchain](https://github.com/B1SA/hackath
 
 We now had a REST service for writing values on our blockchain, so we had to send the message from Node-RED. That's an easy task! We made a little sub-flow for this particular endeavour:
 
-![HyperLedger Flow](/Screenshots/Flow_02_HYPERLEDGER.JPG?raw=true "HyperLedger Flow")
+![HyperLedger Flow](/Screenshots/Flow_02__HYPERLEDGER.JPG?raw=true "HyperLedger Flow")
 
 We just compose an HTTP request object and send it to the HyperLedger api gateway URL:
 
@@ -108,9 +108,30 @@ Easy as pie! Just set the request payload to the last sensor readout, select a d
 ![SCP Destination](/Screenshots/Node_SCPDestination.JPG?raw=true "SCP Destination")
 
 
+## Chatbox Integration - Send alert messages via Telegram and interact with a Telegram Bot
+
+Same as the B1 Backend, we wanted to send a Telegram message to a certain user after the alert condition was met. Also, we made the world's simplest AI for answering users interacting with the bot when they asked for sensor temperature.
+
+All of this is implemented in the last Node-RED subflow: Telegram
+
+![Telegram Flow](/Screenshots/Flow_03_TELEGRAM.JPG?raw=true "Telegram Flow")
+
+Telegram interaction from Node-RED is really easy, as it provides some specific nodes for interacting with Telegram Bots. Creating a Telegram bot is really easy, you just have to talk to the @BotFather user, follow his instructions, and you'll have your bot created in less than a minute and will be provided with your API Key.
+
+![Telegram Bot](/Screenshots/NODE_TELEGRAMBOT.JPG?raw=true "Telegram Bot")
+
+Composing a Telegram message is no different from composing an HTTP request: select the destination user, compose a text message and hit the "Telegram sender" node.
+
+For user interaction, we designed a really powerful and ahead of its time AI:
+
+![Telegram AI](/Screenshots/Node_ChatboxAI.JPG?raw=true "Telegram AI")
+
+Simply put: if the user sends any text to the bot containing the "temp" substring, it will automatically initiate the response flow and send the last stored temperature readout from the sensor.
+
+![Telegram Message](/Screenshots/Node_TelegramMessage.JPG?raw=true "Telegram Message")
 
 
 
 
-### TEST IMAGE
-![MQTT FLOW](/Screenshots/Flow_01_MQTT.JPG?raw=true "MQTT FLOW")
+
+
