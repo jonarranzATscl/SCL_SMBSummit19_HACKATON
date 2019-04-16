@@ -1,4 +1,4 @@
-# SMBSummit19_HACKATON
+# SCL_SMBSummit19_HACKATON
 [SCL Consulting](https://www.scl-consulting.com/) - SAP SMB Summit 2019 - Hackaton Winner!
 
 ## Solution Brief
