@@ -3,9 +3,9 @@
 
 ## Solution Brief
 
-The present solution was developed for the SAP SMB Summit 2019 Hackaton - Nice ([Hackaton Homepage](https://github.com/B1SA/hackathon)) . It was totally developed in the slotted time, on site, and it won the competition!
+The present solution was developed for the SAP SMB Summit 2019 Hackaton - Nice ([Hackaton Homepage](https://github.com/B1SA/hackathon)) . It was totally developed in the alloted time, on site, and it won the competition!
 
-We tried to provide a trusted "Cold chain" monitor for our goods; using a CC2650STK sensor to send temperature readings to Leonardo (not really, more into that later) and store those readings in a blockchain. We also provided an alarm system: when temperature went up to a certain threshold, it sent a message to a B1 backend and a particular user at Telegram. Using telegram, one could ask for the last sensor readout in realtime, thus, providing chatbox integration.
+We tried to provide a trusted "Cold chain" monitor for our goods; using a CC2650STK sensor to send temperature readings to Leonardo (not really, we'll dive into it later) and store those readings in a blockchain. Also, we provided an alarm system: when temperature went up to a certain threshold, it sent a message to a B1 backend and a particular user at Telegram. Using telegram, one could ask for the last sensor readout in realtime, thus, providing chatbox integration.
 
 ## Technologies used
 
@@ -27,7 +27,7 @@ We tried to provide a trusted "Cold chain" monitor for our goods; using a CC2650
 
 ## IoT - Reading from the sensor and acting on received values
 
-For this part, we wanted to use the IoT Leonardo building block which was provided to us in the form of a CC2650STK sensor, an iPad mini with the SAP Gateway to Leonardo and, of course, a SAP Leonardo account. We really couldn't use any of this technologies, because the WiFi connection at the convention hall was working really badly (for the first hour only, it worked fine afterwards) and the iPad couldn't keep a stable connection. So... we invented our own "Leonardo" which we called "Michelangelo".
+For this part, we wanted to use the IoT Leonardo building block which was provided to us in the form of a CC2650STK sensor, an iPad mini with the SAP Gateway to Leonardo and, of course, a SAP Leonardo account. We really couldn't use any of this technologies, because the WiFi connection at the convention hall was working really badly (for the first hour only, it worked fine afterwards) and the iPad couldn't keep a stable connection. So... we invented our own "Leonardo" which we named "Michelangelo".
 
 ### Mosquitto - MQTT Server
 
@@ -37,7 +37,7 @@ We had to send sensor data to the mqtt server, so we configured the standard TI 
 
 ![SensorTag App](/Screenshots/IOS_CONF3.jpg?raw=true "SensorTag App")
 
-Now, we were getting fresh sensor data on our cloud server every other second; but had no way to interact with it.
+Then, we were getting fresh sensor data on our cloud server every other second; but had no way to interact with it.
 
 ### Node-RED
 
@@ -56,11 +56,11 @@ You can "connect" different flows on Node-RED, so after storing the last tempera
 
 ## Blockchain - Storing sensor readouts on a blockchain
 
-For this functionality, we used the [Blockchain](https://github.com/B1SA/hackathon/tree/master/Blockchain) building block directly. Following the step by step [tutorial](https://blogs.sap.com/2018/08/03/step-by-step-process-to-create-your-first-blockchain-project-hello-world/), we managed to have our blockchain up and running in less than 10 minutes. This tutorial creates a really simple chain: a key-value store, but that was all we needed! Fortunately, it has a swagger interface for testing the recently created rest services for interacting with the bloickchain, so we focused our attention on the POST method, for writing new values to the blockchain.
+For this functionality, we used the [Blockchain](https://github.com/B1SA/hackathon/tree/master/Blockchain) building block directly. Following the step by step [tutorial](https://blogs.sap.com/2018/08/03/step-by-step-process-to-create-your-first-blockchain-project-hello-world/), we managed to have our blockchain up and running in less than 10 minutes. This tutorial creates a really simple chain, a key-value store, but that was all we needed! Fortunately, it has a swagger interface for testing the recently created rest services for interacting with the bloickchain, so we focused our attention on the POST method, for writing new values to the blockchain.
 
 ![HyperLedger POST](/Screenshots/SCP_HyperLedger_Swagger.JPG?raw=true "HyperLedger POST")
 
-We now had a REST service for writing values on our blockchain, so we had to send the message from Node-RED. That's an easy task! We made a little sub-flow for this particular endeavour:
+Consequently, we got a REST service for writing values on our blockchain, so we had to send the message from Node-RED. That's an easy task! We made a little sub-flow for this particular endeavour:
 
 ![HyperLedger Flow](/Screenshots/Flow_02__HYPERLEDGER.JPG?raw=true "HyperLedger Flow")
 
@@ -78,7 +78,7 @@ In our design, we wanted to send a message when temperature went up a certain th
 
 ![Alert Condition](/Screenshots/Node_AlertCondition.JPG?raw=true "Alert Condition")
 
-Once the alert condition was met, we continued the flow to two different subflows: sending the message to the B1 backend and sending the message via Telegram.
+Once the alert condition was fulfilled, we continued the flow to two different subflows: sending the message to the B1 backend and sending the message via Telegram.
 
 ### B1 Backend - .NET Core App hosted on SAP Cloud Platform on Cloud Foundry
 
@@ -110,7 +110,7 @@ Easy as pie! Just set the request payload to the last sensor readout, select a d
 
 ## Chatbox Integration - Send alert messages via Telegram and interact with a Telegram Bot
 
-Same as the B1 Backend, we wanted to send a Telegram message to a certain user after the alert condition was met. Also, we made the world's simplest AI for answering users interacting with the bot when they asked for sensor temperature.
+Same as the B1 Backend, we wanted to send a Telegram message to a certain user after the alert condition was fulfilled. Also, we made the world's simplest AI for answering users interacting with the bot when they asked for sensor temperature.
 
 All of this is implemented in the last Node-RED subflow: Telegram
 
@@ -133,9 +133,9 @@ Simply put: if the user sends any text to the bot containing the "temp" substrin
 
 ## Wrap up
 
-So, this is the solution we designed for the Hackaton: a multi-cloud solution (both AWS & SCP!), using IoT sensors to gather real world data, storing sensor values on a secure blockchain, sending alerts when alert conditions were met and answering user inquiries from our Telegram Bot. 
+So, this is the solution we designed for the Hackaton: a multi-cloud solution (both AWS & SCP!), using IoT sensors to gather real world's data, storing sensor values on a secure blockchain, sending alerts when alert conditions were met and answering user inquiries from our Telegram Bot. 
 
-We had a really great time in the Hackaton and are looking forward to next years competition, it's the best session to attend in the SMB Summit, doubt no more and join us next year!!
+We had a really great time in the Hackaton and are looking forward to the upcoming years competition, it's the best session to attend in the SMB Summit, doubt no more and join us next year!!
 
 Our most sincere gratitude to the Solution Architect team for making all this possible, organizing and mantaining the event in such a great venue, creating the building blocks and helping everyone out on-site!
 
