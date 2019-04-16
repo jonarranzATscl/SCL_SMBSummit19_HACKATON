@@ -19,7 +19,7 @@ We tried to provide a trusted "Cold chain" monitor for our goods; using a CC2650
 ### Other Tools
 
 * [Node-RED](https://nodered.org/) - Flow based programming for the Internet of Things
-* [Node-Mosquitto](https://mosquitto.org/) - Open source MQTT broker
+* [Mosquitto](https://mosquitto.org/) - Open source MQTT broker
 * [Amazon Web Services](https://aws.amazon.com) - For running the mosquitto broker
 * [Amazon Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk) - For hosting node-red
 
