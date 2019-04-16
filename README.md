@@ -5,7 +5,7 @@ SCL Consulting - SAP SMB Summit 2019 - Hackaton Winner!
 
 The present solution was developed for the SAP SMB Summit 2019 Hackaton - Nice ([Hackaton Homepage](https://github.com/B1SA/hackathon)) . It was totally developed in the slotted time, on site, and it won the competition!
 
-We tried to provide a trusted "Cold chain" monitor for our goods; using a CC2650STK sensor to send temperature readings to Leonardo (not really, more into that later) and store those readings in a blockchain. We also provided an alarm system: when temperature went down from a certain threshold, it sent a message to a B1 backend and a particular user at Telegram. Using telegram, one could ask for the last sensor readout in realtime, thus, providing chatbox integration.
+We tried to provide a trusted "Cold chain" monitor for our goods; using a CC2650STK sensor to send temperature readings to Leonardo (not really, more into that later) and store those readings in a blockchain. We also provided an alarm system: when temperature went up to a certain threshold, it sent a message to a B1 backend and a particular user at Telegram. Using telegram, one could ask for the last sensor readout in realtime, thus, providing chatbox integration.
 
 ## Technologies used
 
@@ -131,6 +131,13 @@ Simply put: if the user sends any text to the bot containing the "temp" substrin
 ![Telegram Message](/Screenshots/Node_TelegramMessage.JPG?raw=true "Telegram Message")
 
 
+## Wrap up
+
+So, this is the solution we designed for the Hackaton: a multi-cloud solution (both AWS & SCP!), using IoT sensors to gather real world data, storing sensor values on a secure blockchain, sending alerts when alter conditions were met and answering user inquiries from our Telegram Bot. 
+
+We had a really great time in the Hackaton and are looking forward to next years competition, it's the best session to attend in the SMB Summit, doubt no more and join us next year!!
+
+Our most sincere gratitude to the Solution Architect team for making all this possible, organizing and mantainign the event in such a great venue, creating the building blocks and helping everyone out on-site!
 
 
 
