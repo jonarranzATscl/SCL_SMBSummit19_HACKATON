@@ -133,11 +133,11 @@ Simply put: if the user sends any text to the bot containing the "temp" substrin
 
 ## Wrap up
 
-So, this is the solution we designed for the Hackaton: a multi-cloud solution (both AWS & SCP!), using IoT sensors to gather real world data, storing sensor values on a secure blockchain, sending alerts when alter conditions were met and answering user inquiries from our Telegram Bot. 
+So, this is the solution we designed for the Hackaton: a multi-cloud solution (both AWS & SCP!), using IoT sensors to gather real world data, storing sensor values on a secure blockchain, sending alerts when alert conditions were met and answering user inquiries from our Telegram Bot. 
 
 We had a really great time in the Hackaton and are looking forward to next years competition, it's the best session to attend in the SMB Summit, doubt no more and join us next year!!
 
-Our most sincere gratitude to the Solution Architect team for making all this possible, organizing and mantainign the event in such a great venue, creating the building blocks and helping everyone out on-site!
+Our most sincere gratitude to the Solution Architect team for making all this possible, organizing and mantaining the event in such a great venue, creating the building blocks and helping everyone out on-site!
 
 
 
