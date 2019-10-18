@@ -95,7 +95,7 @@
         "type": "function",
         "z": "5874a587.7045ac",
         "name": "Compose HyperLedger request",
-        "func": "msg.url = \"https://hyperledger-fabric.cfapps.eu10.hana.ondemand.com/api/v1/chaincodes/CHAINCODE-com-sap-icn-blockchain-example-helloWorld/\" + Date.now();\nmsg.headers = {};\nmsg.headers['accept'] = 'application/json';\nmsg.headers['authorization'] = 'Bearer AUTHCODE';\nmsg.headers['Content-Type'] = 'application/x-www-form-urlencoded';\nmsg.payload = {\"text\": msg.payload};\nreturn msg;",
+        "func": "msg.url = \"https://hyperledger-fabric.cfapps.eu10.hana.ondemand.com/api/v1/chaincodes/CHAINCODE-com-sap-icn-blockchain-example-helloWorld/\" + new Date().toUTCString();\nmsg.headers = {};\nmsg.headers['accept'] = 'application/json';\nmsg.headers['authorization'] = 'Bearer AUTHCODE';\nmsg.headers['Content-Type'] = 'application/x-www-form-urlencoded';\nmsg.payload = {\"text\": msg.payload};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 350,
