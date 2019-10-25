@@ -1,6 +1,14 @@
 # SCL_SMBSummit19_HACKATON
 [SCL Consulting](https://www.scl-consulting.com/) - SAP SMB Summit 2019 - Hackaton Winner!
 
+## Important Update! (2019/10/25)
+
+Darius Heydarian @ SAP made an awesome step by step video implementing this solution. Thank you for your hard work!!
+
+[![Watch the video](https://img.youtube.com/vi/MqdmvYBVAmg/hqdefault.jpg)](https://youtu.be/MqdmvYBVAmg)
+
+(Click on the image for YouTube video link)
+
 ## Solution Brief
 
 The present solution was developed for the SAP SMB Summit 2019 Hackaton - Nice ([Hackaton Homepage](https://github.com/B1SA/hackathon)) . It was totally developed in the alloted time, on site, and it won the competition!
